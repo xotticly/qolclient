@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "qolclient",
+	"version": "${version}",
+	"name": "QoL Client",
+	"description": "Quality-of-life utility modules for singleplayer and survival.",
+	"authors": ["You"],
+	"license": "CC0-1.0",
+	"icon": "assets/qolclient/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": ["com.example.client.QolClient"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
