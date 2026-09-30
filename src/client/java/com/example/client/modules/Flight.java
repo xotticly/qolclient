@@ -18,7 +18,7 @@ public class Flight extends Module {
 		var player = mc.player;
 		if (player == null) return;
 		player.getAbilities().mayfly = true;
-		player.getAbilities().setFlySpeed(0.05f * (float) speed.get());
+		player.getAbilities().setFlyingSpeed(0.05f * (float) speed.get());
 
 		SinglePlayer.runOnServer(mc, sp -> {
 			if (!sp.getAbilities().mayfly) {
@@ -35,7 +35,7 @@ public class Flight extends Module {
 		if (player == null || player.isCreative() || player.isSpectator()) return;
 		player.getAbilities().mayfly = false;
 		player.getAbilities().flying = false;
-		player.getAbilities().setFlySpeed(0.05f);
+		player.getAbilities().setFlyingSpeed(0.05f);
 		SinglePlayer.runOnServer(mc, sp -> {
 			sp.getAbilities().mayfly = false;
 			sp.getAbilities().flying = false;
