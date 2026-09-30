@@ -3,5 +3,13 @@
 	"key.qolclient.sprint": "Toggle Sprint",
 	"key.qolclient.fullbright": "Toggle Fullbright",
 	"key.qolclient.autorespawn": "Toggle AutoRespawn",
-	"key.qolclient.hud": "Toggle HUD"
+	"key.qolclient.hud": "Toggle HUD",
+	"key.qolclient.autoeat": "Toggle AutoEat",
+	"key.qolclient.autotool": "Toggle AutoTool",
+	"key.qolclient.zoom": "Toggle Zoom",
+	"key.qolclient.flight": "Toggle Flight",
+	"key.qolclient.speed": "Toggle Speed",
+	"key.qolclient.nofall": "Toggle NoFall",
+	"key.qolclient.triggerbot": "Toggle TriggerBot",
+	"key.qolclient.aimassist": "Toggle AimAssist"
 }

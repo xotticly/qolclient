@@ -2,10 +2,19 @@ package com.example.client.module;
 
 import com.example.client.config.ConfigManager;
 import com.example.client.gui.ModuleScreen;
+import com.example.client.SinglePlayer;
+import com.example.client.modules.AimAssist;
+import com.example.client.modules.AutoEat;
 import com.example.client.modules.AutoRespawn;
+import com.example.client.modules.AutoTool;
+import com.example.client.modules.Flight;
 import com.example.client.modules.Fullbright;
 import com.example.client.modules.Hud;
+import com.example.client.modules.NoFall;
+import com.example.client.modules.Speed;
 import com.example.client.modules.Sprint;
+import com.example.client.modules.TriggerBot;
+import com.example.client.modules.Zoom;
 import com.mojang.blaze3d.platform.InputConstants;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -21,11 +30,20 @@ public class ModuleManager {
 	private final List<Module> modules = new ArrayList<>();
 	private final Map<Module, KeyMapping> keys = new LinkedHashMap<>();
 	private KeyMapping guiKey;
+	private boolean wasActive = false;
 
 	public void init() {
 		register(new Sprint());
 		register(new Fullbright());
 		register(new AutoRespawn());
+		register(new AutoEat());
+		register(new AutoTool());
+		register(new Zoom());
+		register(new Flight());
+		register(new Speed());
+		register(new NoFall());
+		register(new TriggerBot());
+		register(new AimAssist());
 		register(new Hud());
 
 		// Each module gets a rebindable key in Options > Controls > Key Binds (unbound by default).
@@ -61,11 +79,24 @@ public class ModuleManager {
 			}
 			if (toggled) ConfigManager.save(this);
 		}
-		if (mc.player == null) return;
+		// Modules only run in singleplayer. Entering/leaving a singleplayer world
+		// fires onEnable/onDisable for every enabled module.
+		boolean active = isActive();
+		if (active != wasActive) {
+			wasActive = active;
+			for (Module m : modules) {
+				if (!m.isEnabled()) continue;
+				if (active) m.onEnable(); else m.onDisable();
+			}
+		}
+		if (!active || mc.player == null) return;
 		for (Module m : modules) {
 			if (m.isEnabled()) m.onTick(mc);
 		}
 	}
+
+	/** True only while playing in a singleplayer world. */
+	public boolean isActive() { return SinglePlayer.isActive(); }
 
 	public List<Module> getModules() { return modules; }
 

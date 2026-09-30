@@ -6,6 +6,7 @@ import com.example.client.module.ModuleManager;
 import com.example.client.settings.Setting;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.IOException;
@@ -30,6 +31,9 @@ public class ConfigManager {
 			obj.add("settings", settings);
 			root.add(m.getName(), obj);
 		}
+		JsonArray servers = new JsonArray();
+		for (String ip : AllowedServers.all()) servers.add(ip);
+		root.add("allowedServers", servers);
 		try {
 			Files.writeString(file(), GSON.toJson(root));
 		} catch (IOException e) {
@@ -45,6 +49,9 @@ public class ConfigManager {
 		}
 		try {
 			JsonObject root = JsonParser.parseString(Files.readString(path)).getAsJsonObject();
+			if (root.has("allowedServers")) {
+				for (var el : root.getAsJsonArray("allowedServers")) AllowedServers.add(el.getAsString());
+			}
 			for (Module m : manager.getModules()) {
 				if (!root.has(m.getName())) continue;
 				JsonObject obj = root.getAsJsonObject(m.getName());

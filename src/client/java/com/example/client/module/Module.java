@@ -1,12 +1,13 @@
 package com.example.client.module;
 
+import com.example.client.SinglePlayer;
 import com.example.client.settings.Setting;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 
 public abstract class Module {
-	public enum Category { MOVEMENT, RENDER, MISC }
+	public enum Category { COMBAT, MOVEMENT, RENDER, MISC }
 
 	private final String name;
 	private final String description;
@@ -30,7 +31,9 @@ public abstract class Module {
 	public void setEnabled(boolean state) {
 		if (state == enabled) return;
 		enabled = state;
-		if (enabled) onEnable(); else onDisable();
+		if (SinglePlayer.isActive()) {
+			if (enabled) onEnable(); else onDisable();
+		}
 	}
 
 	/** Called every client tick while enabled and a player exists. */

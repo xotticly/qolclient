@@ -26,7 +26,7 @@ public class Hud extends Module {
 		HudRenderCallback.EVENT.register((graphics, tickCounter) -> {
 			if (!isEnabled()) return;
 			Minecraft mc = Minecraft.getInstance();
-			if (mc.player == null || mc.options.hideGui) return;
+			if (mc.player == null || mc.options.hideGui || !QolClient.MODULES.isActive()) return;
 
 			int y = 4;
 			if (watermark.get()) {
