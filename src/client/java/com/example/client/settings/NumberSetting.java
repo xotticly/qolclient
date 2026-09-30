@@ -19,6 +19,7 @@ public class NumberSetting extends Setting {
 	public int getInt() { return (int) value; }
 	public double getMin() { return min; }
 	public double getMax() { return max; }
+	public double getStep() { return step; }
 
 	public void set(double v) {
 		v = Math.max(min, Math.min(max, v));
